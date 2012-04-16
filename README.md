@@ -21,7 +21,7 @@ Running this command when you have some bitmaps selected on the stage will wrap 
 Installing
 ----------
 
-Make sure you can Git [Git](http://git-scm.com/) installed, then run this:
+Make sure you have [Git](http://git-scm.com/) installed, then run this:
 
 ```bash
 curl https://raw.github.com/katalyst/flash_commands/master/install | ruby
