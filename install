@@ -1,0 +1,50 @@
+#!/usr/bin/ruby
+
+# ERROR CODES
+#
+# 1 - unknown error
+# 2 - missing dependacy (such as git)
+# 3 - unsupported OS
+
+CS4_DIRECTORY = "#{ENV['HOME']}/Library/Application Support/Adobe/Flash CS4/en/Configuration/Commands"
+CS5_DIRECTORY = "#{ENV['HOME']}/Library/Application Support/Adobe/Flash CS5/en_US/Configuration/Commands"
+CS5_5_DIRECTORY = "#{ENV['HOME']}/Library/Application Support/Adobe/Flash CS5.5/en_US/Configuration/Commands"
+
+unless RUBY_PLATFORM.include?("darwin")
+  puts "Unable to install. This install script currently only supports OS X."
+  exit 2
+end
+
+# # TODO: Check is git is installed.
+# begin
+#   %x[git > /dev/null]
+# rescue
+#   puts "Unable to install. Couldn't find Git. http://git-scm.com/"
+#   exit 3
+# end
+
+if File.directory?("#{CS4_DIRECTORY}/Katalyst")
+  puts "Already installed for Flash CS4."
+else
+  puts "Installing for Flash CS4..."
+  `git clone git@github.com:katalyst/flash_commands.git "#{CS4_DIRECTORY}/Katalyst"`
+  puts "Complete."
+end
+
+if File.directory?("#{CS5_DIRECTORY}/Katalyst")
+  puts "Already installed for Flash CS5."
+else
+  puts "Installing for Flash CS5..."
+  `git clone git@github.com:katalyst/flash_commands.git "#{CS5_DIRECTORY}/Katalyst"`
+  puts "Complete."
+end
+
+if File.directory?("#{CS5_5_DIRECTORY}/Katalyst")
+  puts "Already installed for Flash CS5.5."
+else
+  puts "Installing for Flash CS5.5..."
+  `git clone git@github.com:katalyst/flash_commands.git "#{CS5_5_DIRECTORY}/Katalyst"`
+  puts "Complete."
+end
+
+exit 0
