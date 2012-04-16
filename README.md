@@ -1,36 +1,51 @@
 Flash Commands
 ==============
 
+Using
+-----
+
+The following commands are added to the `Commands > Katalyst` menu in Flash.
+
+### Name Instances
+
+Will give the selected instances names based of their symbol's name in the library.
+
+### Organise Library
+
+Will cleanup your library.
+
+### Wrap Bitmaps
+
+Running this command when you have some bitmaps selected on the stage will wrap them in movieclips.
+
 Installing
 ----------
 
 Install [Git](http://git-scm.com/) first.
 
-### OS X, Flash CS5.5
+### OS X & Flash CS5.5
 
 ```bash
-git clone git@github.com:katalyst/flash_commands.git ~/Library/Application\ Support/Adobe/Flash\ CS5.5/en_US/Configuration/Commands/Katalyst
+cd ~/Library/Application\ Support/Adobe/Flash\ CS5.5/en_US/Configuration/Commands
+git clone git@github.com:katalyst/flash_commands.git Katalyst
 ```
 
-Using
------
+Updating
+--------
 
-### Commands > Katalyst > Name Instances
+Install [Git](http://git-scm.com/) first.
 
-Will give the selected instances names based of their symbol's name in the library.
+### OS X & Flash CS5.5
 
-### Commands > Katalyst > Organise Library
-
-Will cleanup your library.
-
-### Commands > Katalyst > Wrap Bitmaps
-
-Running this command when you have some bitmaps selected on the stage will wrap them in movieclips.
+```bash
+cd ~/Library/Application\ Support/Adobe/Flash\ CS5.5/en_US/Configuration/Commands/Katalyst
+git pull
+```
 
 Licence
 -------
 
-    Copyright 2011 Katalyst Interactive
+    Copyright 2012 Katalyst Interactive
 
     Permission is hereby granted, free of charge, to any person obtaining
     a copy of this software and associated documentation files (the
