@@ -2,13 +2,13 @@
 // FUCNTIONS
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// TODO: Handle mutliple types: is("movie clip", "bitmap")
+// TODO: Handle mutliple types: is(item, "movie clip", "bitmap")
 function is(item, type)
 {
   return item.itemType == type;
 }
 
-// TODO: Handle mutliple types: isNot("movie clip", "bitmap")
+// TODO: Handle mutliple types: isNot(item, "movie clip", "bitmap")
 function isNot(item, type)
 {
   return item.itemType != type;
@@ -24,7 +24,31 @@ function path(item)
   return (item.name.indexOf("/") == -1) ? "" : item.name.slice(0, item.name.lastIndexOf("/")+1);
 }
 
-// TODO: Make a move function `move(item, "example/Item")` that will automatically append '00', '01' etc to files with the same name.
+function camelcase(string)
+{
+  // Captitalise any letter that follows a space or a hyphen.
+  string = string.replace(/[\s\-](.)/g, function($1) { return $1.toUpperCase(); });
+  // Remove spaces and dashes.
+  string = string.replace(/[\s\-]/g, '');
+  // Captitalise the first letter.
+  string = string.replace(/^(.)/, function($1) { return $1.toUpperCase(); });
+
+  return string;
+}
+
+function move(item, namePath)
+{
+  if (library.itemExists(namePath))
+  {
+    var i=1;
+    while (library.itemExists(namePath+i)) i++;
+    item.name = namePath+i;
+  }
+  else
+  {
+    item.name = namePath;
+  }
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // INIT
@@ -33,7 +57,7 @@ function path(item)
 var library = fl.getDocumentDOM().library;
 var items = library.items;
 
-// NORMALISE BITMAP NAMES
+// NORMALISE NAMES
 //
 // For example: "my-example-image-a-01.png" => "MyExampleImageABitmap".
 //
@@ -41,24 +65,21 @@ var items = library.items;
 for (var i=0; i<items.length; i++)
 {
   var item = items[i];
+  var newName = name(item);
 
   if (is(item, "bitmap"))
   {
-    var newName = name(item);
-
     // Repalce file extensions ('.png', '.jpg' etc) with 'Bitmap'.
     newName = newName.replace(/\.(png|jpg|gif|jpeg|psd)$/, 'Bitmap');
-    // Captitalise any letter that follows a space or a hyphen.
-    newName = newName.replace(/[\s\-](.)/g, function($1) { return $1.toUpperCase(); });
-    // Remove spaces and dashes.
-    newName = newName.replace(/[\s\-]/g, '');
-    // Strip out all digits.
-    newName = newName.replace(/[\d]/g, '');
-    // Captitalise the first letter.
-    newName = newName.replace(/^(.)/, function($1) { return $1.toUpperCase(); });
+  }
 
+  // Camelcase it.
+  newName = camelcase(newName);
+
+  if (name(item) != newName)
+  {
     // Update the actual name.
-    item.name = newName;
+    move(item, newName);
   }
 }
 
@@ -93,19 +114,33 @@ for (var i=0; i<items.length; i++)
 // Move resources into the resources folder.
 //
 
-library.newFolder('resources');
+var linkedSymbols = false;
 
 for (var i=0; i<items.length; i++)
 {
-  var item = items[i];
-
-  if (isNot(item, "folder"))
+  if (items[i].linkageClassName != undefined)
   {
-    // If the item hasn't been exported for ActionScript and isn't in the resources folder.
-    if (item.linkageClassName == undefined && item.name.indexOf("resources/") != 0)
+    linkedSymbols = true;
+    break;
+  }
+}
+
+if (linkedSymbols)
+{
+  library.newFolder('resources');
+
+  for (var i=0; i<items.length; i++)
+  {
+    var item = items[i];
+
+    if (isNot(item, "folder"))
     {
-      // Move it to the resources folder.
-      library.moveToFolder("resources", item.name);
+      // If the item hasn't been exported for ActionScript and isn't in the resources folder.
+      if (item.linkageClassName == undefined && item.name.indexOf("resources/") != 0)
+      {
+        // Move it to the resources folder.
+        library.moveToFolder("resources", item.name);
+      }
     }
   }
 }
