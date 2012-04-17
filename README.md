@@ -12,6 +12,8 @@ The following commands are added to the **Commands > Katalyst** menu in Flash.
 | Organise Library | Cleans-up the library.                                                   |
 | Wrap Bitmaps     | Wraps the selected bitmaps in movieclips.                                |
 
+See the [wiki](http://github.com/katalyst/flash_commands/wiki) for more information.
+
 Installing
 ----------
 
