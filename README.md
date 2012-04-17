@@ -30,13 +30,10 @@ curl https://raw.github.com/katalyst/flash_commands/master/install | ruby
 Updating
 --------
 
-Install [Git](http://git-scm.com/) first.
-
-### OS X & Flash CS5.5
+Make sure you have [Git](http://git-scm.com/) installed, then run this:
 
 ```bash
-cd ~/Library/Application\ Support/Adobe/Flash\ CS5.5/en_US/Configuration/Commands/Katalyst
-git pull
+curl https://raw.github.com/katalyst/flash_commands/master/update | ruby
 ```
 
 Licence
