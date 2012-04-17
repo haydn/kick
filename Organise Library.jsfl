@@ -65,21 +65,25 @@ var items = library.items;
 for (var i=0; i<items.length; i++)
 {
   var item = items[i];
-  var newName = name(item);
 
-  if (is(item, "bitmap"))
+  if (isNot(item, "folder"))
   {
-    // Repalce file extensions ('.png', '.jpg' etc) with 'Bitmap'.
-    newName = newName.replace(/\.(png|jpg|gif|jpeg|psd)$/, 'Bitmap');
-  }
+    var newName = name(item);
 
-  // Camelcase it.
-  newName = camelcase(newName);
+    if (is(item, "bitmap"))
+    {
+      // Repalce file extensions ('.png', '.jpg' etc) with 'Bitmap'.
+      newName = newName.replace(/\.(png|jpg|gif|jpeg|psd)$/, 'Bitmap');
+    }
 
-  if (name(item) != newName)
-  {
-    // Update the actual name.
-    move(item, newName);
+    // Camelcase it.
+    newName = camelcase(newName);
+
+    if (name(item) != newName)
+    {
+      // Update the actual name.
+      move(item, newName);
+    }
   }
 }
 
@@ -125,6 +129,8 @@ for (var i=0; i<items.length; i++)
   }
 }
 
+alert(linkedSymbols);
+
 if (linkedSymbols)
 {
   library.newFolder('resources');
@@ -138,11 +144,14 @@ if (linkedSymbols)
       // If the item hasn't been exported for ActionScript and isn't in the resources folder.
       if (item.linkageClassName == undefined && item.name.indexOf("resources/") != 0)
       {
+        oneMoved = true;
         // Move it to the resources folder.
         library.moveToFolder("resources", item.name);
       }
     }
   }
 }
+
+alert(oneMoved);
 
 // TODO: Clean out empty folders.
