@@ -4,19 +4,13 @@ Flash Commands
 Using
 -----
 
-The following commands are added to the `Commands > Katalyst` menu in Flash.
+The following commands are added to the **Commands > Katalyst** menu in Flash.
 
-### Name Instances
-
-Will give the selected instances names based of their symbol's name in the library.
-
-### Organise Library
-
-Will cleanup your library.
-
-### Wrap Bitmaps
-
-Running this command when you have some bitmaps selected on the stage will wrap them in movieclips.
+| Command          | Description                                                              |
+|------------------|--------------------------------------------------------------------------|
+| Name Instances   | Gives the selected instances names based of their symbol's library name. |
+| Organise Library | Cleans-up the library.                                                   |
+| Wrap Bitmaps     | Wraps the selected bitmaps in movieclips.                                |
 
 Installing
 ----------
