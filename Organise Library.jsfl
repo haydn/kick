@@ -96,19 +96,16 @@ for (var i=0; i<items.length; i++)
 {
   var item = items[i];
 
-  if (is(item, "movie clip"))
+  // If the item has been exported for ActionScript.
+  if (item.linkageClassName != undefined)
   {
-    // If the item has been exported for ActionScript.
-    if (item.linkageClassName != undefined)
+    // If the item isn't already named correctly.
+    if (item.linkageClassName != item.name)
     {
-      // If the item isn't already named correctly.
-      if (item.linkageClassName != item.name)
-      {
-        // Move it to the root.
-        library.moveToFolder("", item.name);
-        // Set it's name to the linkageClassName.
-        item.name = item.linkageClassName;
-      }
+      // Move it to the root.
+      library.moveToFolder("", item.name);
+      // Set it's name to the linkageClassName.
+      item.name = item.linkageClassName;
     }
   }
 }
@@ -129,8 +126,6 @@ for (var i=0; i<items.length; i++)
   }
 }
 
-alert(linkedSymbols);
-
 if (linkedSymbols)
 {
   library.newFolder('resources');
@@ -144,14 +139,11 @@ if (linkedSymbols)
       // If the item hasn't been exported for ActionScript and isn't in the resources folder.
       if (item.linkageClassName == undefined && item.name.indexOf("resources/") != 0)
       {
-        oneMoved = true;
         // Move it to the resources folder.
         library.moveToFolder("resources", item.name);
       }
     }
   }
 }
-
-alert(oneMoved);
 
 // TODO: Clean out empty folders.
