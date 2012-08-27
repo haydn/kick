@@ -3,12 +3,15 @@
 # ERROR CODES
 #
 # 1 - unknown error
-# 2 - missing dependacy (such as git)
-# 3 - unsupported OS
+# 2 - unsupported OS
+# 3 - missing dependacy (such as git)
 
-CS4_DIRECTORY = "#{ENV['HOME']}/Library/Application Support/Adobe/Flash CS4/en/Configuration/Commands"
-CS5_DIRECTORY = "#{ENV['HOME']}/Library/Application Support/Adobe/Flash CS5/en_US/Configuration/Commands"
-CS5_5_DIRECTORY = "#{ENV['HOME']}/Library/Application Support/Adobe/Flash CS5.5/en_US/Configuration/Commands"
+FLASH_VERSIONS = [
+  { :name => "Flash CS4", :directory => "#{ENV['HOME']}/Library/Application Support/Adobe/Flash CS4/en/Configuration/Commands" },
+  { :name => "Flash CS5", :directory => "#{ENV['HOME']}/Library/Application Support/Adobe/Flash CS5/en_US/Configuration/Commands" },
+  { :name => "Flash CS5.5", :directory => "#{ENV['HOME']}/Library/Application Support/Adobe/Flash CS5.5/en_US/Configuration/Commands" },
+  { :name => "Flash CS6", :directory => "#{ENV['HOME']}/Library/Application Support/Adobe/Flash CS6/en_US/Configuration/Commands" }
+]
 
 unless RUBY_PLATFORM.include?("darwin")
   puts "Unable to update. This update script currently only supports OS X."
@@ -23,31 +26,15 @@ end
 #   exit 3
 # end
 
-if File.directory?("#{CS4_DIRECTORY}/Katalyst")
-  puts "Updating for Flash CS4..."
-  Dir.chdir("#{CS4_DIRECTORY}/Katalyst")
-  `git pull > /dev/null`
-  puts "Complete."
-else
-  puts "Install for Flash CS4 not found."
-end
-
-if File.directory?("#{CS5_DIRECTORY}/Katalyst")
-  puts "Updating for Flash CS5..."
-  Dir.chdir("#{CS5_DIRECTORY}/Katalyst")
-  `git pull > /dev/null`
-  puts "Complete."
-else
-  puts "Install for Flash CS5 not found."
-end
-
-if File.directory?("#{CS5_5_DIRECTORY}/Katalyst")
-  puts "Updating for Flash CS5.5..."
-  Dir.chdir("#{CS5_5_DIRECTORY}/Katalyst")
-  `git pull > /dev/null`
-  puts "Complete."
-else
-  puts "Install for Flash CS5.5 not found."
+FLASH_VERSIONS.each do |flash_version|
+  if File.directory?("#{flash_version[:directory]}/Katalyst")
+    puts "Updating #{flash_version[:name]} installation..."
+    Dir.chdir("#{flash_version[:directory]}/Katalyst")
+    `git pull > /dev/null`
+    puts "Complete."
+  else
+    puts "No installation for #{flash_version[:name]} found."
+  end
 end
 
 exit 0
