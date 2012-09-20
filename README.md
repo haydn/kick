@@ -1,10 +1,12 @@
-Flash Commands
-==============
+Kick
+====
+
+JSFL commands for Flash CS4, CS5, CS5.5 and CS6.
 
 Using
 -----
 
-The following commands are added to the **Commands > Katalyst** menu in Flash.
+The following commands are added to the **Commands > Kick** menu in Flash.
 
 | Command          | Description                                                              |
 |------------------|--------------------------------------------------------------------------|
@@ -12,24 +14,16 @@ The following commands are added to the **Commands > Katalyst** menu in Flash.
 | Organise Library | Cleans-up the library.                                                   |
 | Wrap Bitmaps     | Wraps the selected bitmaps in movieclips.                                |
 
-See the [wiki](http://github.com/katalyst/flash_commands/wiki) for more information.
+See the [wiki](http://github.com/ketchup/kick/wiki) for more information.
 
 Installing
 ----------
 
-Make sure you have [Git](http://git-scm.com/) installed, then run this:
+Install with [Homebrew](http://mxcl.github.com/homebrew/) via the `ketchup/brewhouse` tap:
 
-```bash
-curl https://raw.github.com/katalyst/flash_commands/master/install | ruby
 ```
-
-Updating
---------
-
-Make sure you have [Git](http://git-scm.com/) installed, then run this:
-
-```bash
-curl https://raw.github.com/katalyst/flash_commands/master/update | ruby
+brew tap ketchup/brewhouse
+brew install kick
 ```
 
 Licence
